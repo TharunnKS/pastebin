@@ -7,6 +7,13 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [pasteUrl, setPasteUrl] = useState('');
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(pasteUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,15 +75,18 @@ export default function Home() {
 
       {pasteUrl && (
         <div style={styles.successBox}>
+          <button onClick={() => setPasteUrl('')} style={styles.closeButton}>
+            ✕
+          </button>
           <strong>Success!</strong> Your paste has been created.
           <div style={styles.urlBox}>
             <a href={pasteUrl} style={styles.urlLink} target="_blank" rel="noopener noreferrer">
               {pasteUrl}
             </a>
+            <button onClick={handleCopy} style={styles.copyButton}>
+              {copied ? '✓ Copied!' : 'Copy'}
+            </button>
           </div>
-          <button onClick={() => setPasteUrl('')} style={styles.closeButton}>
-            ✕ Close
-          </button>
         </div>
       )}
 
@@ -197,25 +207,46 @@ const styles = {
     padding: '12px',
     borderRadius: '4px',
     marginTop: '12px',
-    wordBreak: 'break-all'
+    wordBreak: 'break-all',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px'
   },
   urlLink: {
     color: '#2563eb',
     textDecoration: 'none',
-    fontWeight: '500'
+    fontWeight: '500',
+    flex: '1'
+  },
+  copyButton: {
+    padding: '8px 16px',
+    backgroundColor: '#2563eb',
+    color: 'white',
+    border: 'none',
+    borderRadius: '6px',
+    fontSize: '14px',
+    fontWeight: '500',
+    cursor: 'pointer',
+    whiteSpace: 'nowrap',
+    transition: 'background-color 0.2s'
   },
   closeButton: {
     position: 'absolute',
-    top: '16px',
-    right: '16px',
-    background: 'none',
+    top: '12px',
+    right: '12px',
+    background: '#065f46',
     border: 'none',
     cursor: 'pointer',
-    fontSize: '18px',
-    color: '#065f46',
-    padding: '0',
+    fontSize: '16px',
+    color: 'white',
+    padding: '4px',
     width: '24px',
-    height: '24px'
+    height: '24px',
+    borderRadius: '4px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontWeight: 'bold'
   },
   form: {
     marginBottom: '30px'
