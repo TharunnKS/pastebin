@@ -27,7 +27,15 @@ export default function PastePage({ paste, error }) {
           )}
           {paste.expires_at && (
             <span style={styles.badge}>
-              Expires: {new Date(paste.expires_at).toLocaleString()}
+              Expires: {new Date(paste.expires_at).toLocaleString('en-US', { 
+                year: 'numeric',
+                month: '2-digit', 
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+              })}
             </span>
           )}
         </div>
@@ -67,7 +75,7 @@ export async function getServerSideProps({ req, params }) {
     const serializedPaste = {
       content: paste.content,
       remaining_views: paste.remaining_views,
-      expires_at: paste.expires_at ? paste.expires_at.toISOString() : null
+      expires_at: paste.expires_at || null
     };
     
     return {

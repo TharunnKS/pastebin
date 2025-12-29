@@ -27,7 +27,7 @@ export default async function handler(req, res) {
     const response = {
       content: paste.content,
       remaining_views: paste.remaining_views,
-      expires_at: paste.expires_at ? paste.expires_at.toISOString() : null
+      expires_at: paste.expires_at || null
     };
 
     return res.status(200).json(response);
