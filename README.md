@@ -4,7 +4,7 @@ A lightweight Pastebin-like web application where users can quickly store and sh
 
 ## 🚀 Live Demo
 
-**Deployed URL:** `https://your-app.vercel.app` *(Update this after deployment)*
+**Deployed URL:** https://pastebin-beige-psi.vercel.app
 
 **Repository:** [https://github.com/TharunnKS/pastebin](https://github.com/TharunnKS/pastebin)
 
